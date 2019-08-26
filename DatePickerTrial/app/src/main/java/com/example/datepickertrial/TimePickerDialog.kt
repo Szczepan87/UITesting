@@ -8,7 +8,9 @@ import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import java.util.*
 
-class TimePickerDialog: DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class TimePickerDialog : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+
+    var result: ((String) -> Unit)? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -20,6 +22,7 @@ class TimePickerDialog: DialogFragment(), TimePickerDialog.OnTimeSetListener {
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        Log.d("TIME", "Hour: $hourOfDay \n Minute: $minute")
+        Log.d("TIME", "Hour: $hourOfDay Minute: $minute")
+        result?.invoke("TIME: Hour: $hourOfDay Minute: $minute")
     }
 }

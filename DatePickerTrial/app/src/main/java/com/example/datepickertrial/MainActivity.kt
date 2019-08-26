@@ -10,6 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        date_button.setOnClickListener { TimePickerDialog().show(supportFragmentManager, "time picker") }
+        val datePickerDialog = DatePickerDialog()
+
+        date_button.setOnClickListener {
+            datePickerDialog.show(supportFragmentManager, "date picker")
+            datePickerDialog.result = { date_textView.text = it}
+        }
     }
 }
