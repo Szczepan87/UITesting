@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/textAndButtons">
+
+    <fragment
+        android:id="@+id/textAndButtons"
+        android:name="com.fieldcode.uitestapplication.ui.TextAndButtons"
+        android:label="text_and_buttons_fragment"
+        tools:layout="@layout/text_and_buttons_fragment" >
+        <action
+            android:id="@+id/action_textAndButtons_to_animationFragment"
+            app:destination="@id/animationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animationFragment"
+        android:name="com.fieldcode.uitestapplication.ui.AnimationFragment"
+        android:label="animation_fragment"
+        tools:layout="@layout/animation_fragment" >
+        <action
+            android:id="@+id/action_animationFragment_to_switchesFragment"
+            app:destination="@id/switchesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/switchesFragment"
+        android:name="com.fieldcode.uitestapplication.ui.SwitchesFragment"
+        android:label="switches_fragment"
+        tools:layout="@layout/switches_fragment" >
+        <action
+            android:id="@+id/action_switchesFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.fieldcode.uitestapplication.ui.ListFragment"
+        android:label="list_fragment"
+        tools:layout="@layout/list_fragment" />
+</navigation>
