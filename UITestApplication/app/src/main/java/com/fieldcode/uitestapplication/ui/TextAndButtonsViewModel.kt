@@ -11,10 +11,10 @@ class TextAndButtonsViewModel : ViewModel() {
         get() = _text
 
     fun add() {
-        "${_text.value}A"
+        _text.value = "${_text.value}A"
     }
 
     fun subtract() {
-        _text.value?.dropLast(1)
+        _text.value = _text.value?.dropLast(1)
     }
 }
