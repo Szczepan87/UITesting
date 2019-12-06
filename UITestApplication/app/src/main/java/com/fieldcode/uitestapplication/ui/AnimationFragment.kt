@@ -6,28 +6,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.databinding.DataBindingUtil
 
 import com.fieldcode.uitestapplication.R
+import com.fieldcode.uitestapplication.databinding.AnimationFragmentBinding
 
 class AnimationFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AnimationFragment()
-    }
-
     private lateinit var viewModel: AnimationViewModel
+    private lateinit var binding: AnimationFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.animation_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AnimationViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding = DataBindingUtil.inflate(inflater, R.layout.animation_fragment, container, false)
+        with(binding){
+            viewModel = this@AnimationFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+            return root
+        }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding){
+            animateButton.setOnClickListener {
+                motoImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_right_anim))
+                carImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_left)) }
+
+        }
+    }
 }
