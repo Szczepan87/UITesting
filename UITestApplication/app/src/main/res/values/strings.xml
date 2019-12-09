@@ -4,4 +4,7 @@
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="animate">Animate</string>
+    <string name="option_1">Option 1</string>
+    <string name="option_2">Option 2</string>
+    <string name="switch_txt">Switch</string>
 </resources>

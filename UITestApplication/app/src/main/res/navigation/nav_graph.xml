@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_animationFragment_to_switchesFragment"
             app:destination="@id/switchesFragment" />
+        <action
+            android:id="@+id/action_animationFragment_to_textAndButtons"
+            app:destination="@id/textAndButtons" />
     </fragment>
     <fragment
         android:id="@+id/switchesFragment"
@@ -31,6 +34,9 @@
         <action
             android:id="@+id/action_switchesFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_switchesFragment_to_animationFragment"
+            app:destination="@id/animationFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"

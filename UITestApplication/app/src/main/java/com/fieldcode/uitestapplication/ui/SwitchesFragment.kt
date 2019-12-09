@@ -6,28 +6,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 
 import com.fieldcode.uitestapplication.R
+import com.fieldcode.uitestapplication.databinding.SwitchesFragmentBinding
 
 class SwitchesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SwitchesFragment()
-    }
-
     private lateinit var viewModel: SwitchesViewModel
+    private lateinit var binding: SwitchesFragmentBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.switches_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SwitchesViewModel::class.java)
-        // TODO: Use the ViewModel
+        binding = DataBindingUtil.inflate(inflater, R.layout.switches_fragment, container, false)
+        with(binding) {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = this@SwitchesFragment.viewModel
+            return root
+        }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding){
+            backArrow.setOnClickListener { findNavController().navigate(R.id.action_switchesFragment_to_animationFragment) }
+            forwardArrow.setOnClickListener { findNavController().navigate(R.id.action_switchesFragment_to_listFragment) }
+        }
+    }
 }

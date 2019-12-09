@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 
 import com.fieldcode.uitestapplication.R
 import com.fieldcode.uitestapplication.databinding.AnimationFragmentBinding
+import kotlinx.android.synthetic.main.switches_fragment.*
 
 class AnimationFragment : Fragment() {
 
@@ -34,6 +36,8 @@ class AnimationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding){
+            back_arrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_textAndButtons) }
+            forward_arrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_switchesFragment) }
             animateButton.setOnClickListener {
                 motoImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_right_anim))
                 carImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_left)) }
