@@ -36,12 +36,12 @@ class AnimationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding){
-            back_arrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_textAndButtons) }
-            forward_arrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_switchesFragment) }
+
+            animationPreviousArrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_textAndButtons) }
+            animationNextArrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_switchesFragment) }
             animateButton.setOnClickListener {
                 motoImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_right_anim))
                 carImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_left)) }
-
         }
     }
 }

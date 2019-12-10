@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.MotionEventCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 
 import com.fieldcode.uitestapplication.R
 import com.fieldcode.uitestapplication.databinding.TextAndButtonsFragmentBinding
@@ -17,7 +18,6 @@ import com.fieldcode.uitestapplication.databinding.TextAndButtonsFragmentBinding
 class TextAndButtons : Fragment() {
 
     private lateinit var viewModel: TextAndButtonsViewModel
-
     private lateinit var binding: TextAndButtonsFragmentBinding
 
     override fun onCreateView(
@@ -25,7 +25,6 @@ class TextAndButtons : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this).get(TextAndButtonsViewModel::class.java)
-
         binding =
             DataBindingUtil.inflate(inflater, R.layout.text_and_buttons_fragment, container, false)
         with(binding) {
@@ -41,7 +40,7 @@ class TextAndButtons : Fragment() {
         with(binding) {
             addButton.setOnClickListener { viewModel?.add() }
             removeButton.setOnClickListener { viewModel?.subtract() }
-            nextArrow.setOnClickListener { findNavController().navigate(R.id.action_textAndButtons_to_animationFragment) }
+            textNextArrow.setOnClickListener { findNavController().navigate(R.id.action_textAndButtons_to_animationFragment) }
         }
     }
 }

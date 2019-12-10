@@ -35,8 +35,8 @@ class SwitchesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding){
-            backArrow.setOnClickListener { findNavController().navigate(R.id.action_switchesFragment_to_animationFragment) }
-            forwardArrow.setOnClickListener { findNavController().navigate(R.id.action_switchesFragment_to_listFragment) }
+            switchBackArrow.setOnClickListener { findNavController().navigate(R.id.action_switchesFragment_to_animationFragment) }
+            switchForwardArrow.setOnClickListener { findNavController().navigate(R.id.action_switchesFragment_to_listFragment) }
         }
     }
 }

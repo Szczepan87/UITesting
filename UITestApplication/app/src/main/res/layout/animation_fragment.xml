@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/animate_button" />
 
         <ImageView
-            android:id="@+id/previous_arrow"
+            android:id="@+id/animation_previous_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -52,7 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/next_arrow"
+            android:id="@+id/animation_next_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_arrow_forward_black_24dp"
