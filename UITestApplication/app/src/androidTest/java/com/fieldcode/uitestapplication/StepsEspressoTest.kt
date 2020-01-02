@@ -5,19 +5,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RatingBar
 import androidx.navigation.NavDeepLinkBuilder
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.fieldcode.uitestapplication.RatingValueMatcher.Companion.withRating
+import com.fieldcode.uitestapplication.ui.MyAdapter
 import org.hamcrest.Description
 import org.junit.Rule
 import org.junit.Test
@@ -109,7 +111,9 @@ class StepsEspressoTest {
     @Test
     fun testRecyclerView() {
         launchFragment(R.id.listFragment)
-        onData(withId(R.id.recycler_view)).atPosition(0).check(matches(isDisplayed()))
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition<MyAdapter.ViewHolder>(3, click()))
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition<MyAdapter.ViewHolder>(10))
+        // onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition<MyAdapter.ViewHolder>(10, click()))
     }
 }
 
