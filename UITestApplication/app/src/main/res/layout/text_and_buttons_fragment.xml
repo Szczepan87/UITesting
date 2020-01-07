@@ -18,6 +18,7 @@
         tools:context=".ui.TextAndButtons">
 
         <EditText
+            android:id="@+id/edit_text"
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:layout_margin="32sp"
