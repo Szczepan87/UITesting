@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 
 import com.fieldcode.uitestapplication.R
 import com.fieldcode.uitestapplication.databinding.AnimationFragmentBinding
+import com.fieldcode.uitestapplication.ext.animateWithEspresso
 import kotlinx.android.synthetic.main.switches_fragment.*
 
 class AnimationFragment : Fragment() {
@@ -25,7 +26,7 @@ class AnimationFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(AnimationViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.animation_fragment, container, false)
-        with(binding){
+        with(binding) {
             viewModel = this@AnimationFragment.viewModel
             lifecycleOwner = viewLifecycleOwner
             return root
@@ -35,13 +36,14 @@ class AnimationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding){
+        with(binding) {
 
             animationPreviousArrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_textAndButtons) }
             animationNextArrow.setOnClickListener { findNavController().navigate(R.id.action_animationFragment_to_switchesFragment) }
             animateButton.setOnClickListener {
-                motoImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_right_anim))
-                carImage.startAnimation(AnimationUtils.loadAnimation(context,R.anim.to_left)) }
+                motoImage.animateWithEspresso(context, R.anim.to_right_anim)
+                carImage.animateWithEspresso(context, R.anim.to_left)
+            }
         }
     }
 }

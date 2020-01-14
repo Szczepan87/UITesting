@@ -4,17 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.test.InstrumentationRegistry.getTargetContext
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.UiSelector
-import androidx.test.uiautomator.Until
+import androidx.test.uiautomator.*
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -86,23 +89,46 @@ class UIAutomatorTests {
     }
 
     @Test
-    fun checkSwitches(){
+    fun checkSwitches() {
         launchFragment(R.id.switchesFragment)
 
         val mainSwitch = device.findObject(By.res(BASIC_PACKAGE_NAME, "main_switch"))
-        mainSwitch.   click()
+        mainSwitch.click()
 
-        device.pressHome()
-        device.pressRecentApps()
-        device.findObject(
-            UiSelector().text(
-                getTargetContext().getString(
-                    getTargetContext().applicationInfo.labelRes
+        val optionOne = device.findObject(By.res(BASIC_PACKAGE_NAME, ""))
+
+        with(device) {
+            pressHome()
+            pressRecentApps()
+            findObject(
+                UiSelector().text(
+                    getTargetContext().getString(
+                        getTargetContext().applicationInfo.labelRes
+                    )
                 )
-            )
-        ).clickAndWaitForNewWindow()
+            ).clickAndWaitForNewWindow()
+        }
 
-        // assertThat(mainSwitch.isChecked, `is`(true))
+        assertThat(mainSwitch.isChecked, `is`(true))
+    }
+
+    @Test
+    fun checkAnimations() {
+        launchFragment(R.id.animationFragment)
+
+        val button = device.findObject(By.res(BASIC_PACKAGE_NAME, "animate_button"))
+        val motoImage = activityRule.activity.findViewById<ImageView>(R.id.moto_image)
+
+        button.click()
+
+        assertThat(
+            motoImage.animation.hasStarted(),
+            `is`(true)
+        )
+
+//        device.wait(Until.gone(By.res(BASIC_PACKAGE_NAME, "moto_image")), 0)
+//
+//        onView(withId(R.id.moto_image)).check(matches(isDisplayed()))
     }
 
     private fun launchFragment(

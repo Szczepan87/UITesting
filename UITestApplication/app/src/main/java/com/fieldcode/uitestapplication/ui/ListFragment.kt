@@ -49,7 +49,7 @@ class ListFragment : Fragment() {
                 Pair("Bartosz", "Bogucki"),
                 Pair("Michał", "Simbiga"),
                 Pair("Marcin", "Bartoszewski"),
-                Pair("Tomasz", "Łukaszewki"),
+                Pair("Tomasz", "Łukaszewski"),
                 Pair("Sebastian", "Małecki"),
                 Pair("Przemysław", "Niemiec"),
                 Pair("Maciej", "Kosecki")

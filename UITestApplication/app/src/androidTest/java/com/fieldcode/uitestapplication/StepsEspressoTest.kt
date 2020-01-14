@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.RatingBar
 import androidx.navigation.NavDeepLinkBuilder
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
@@ -21,6 +25,8 @@ import androidx.test.rule.ActivityTestRule
 import com.fieldcode.uitestapplication.RatingValueMatcher.Companion.withRating
 import com.fieldcode.uitestapplication.ui.MyAdapter
 import org.hamcrest.Description
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -61,8 +67,16 @@ class StepsEspressoTest {
         }
     }
 
+    @Before
+    fun registerIdlingRes(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
     @Test
     fun shouldClickThroughAllTheFragments() {
+        onView(withId(R.id.text_next_arrow)).check(matches(isDisplayed()))
+        // this will fail
+        // onView(withId(R.id.text_next_arrow)).perform(click()).check(matches(isDisplayed()))
         onView(withId(R.id.text_next_arrow)).perform(click())
         onView(withId(R.id.animate_button)).check(matches(isDisplayed()))
         onView(withId(R.id.animation_next_arrow)).perform(click())
@@ -111,9 +125,21 @@ class StepsEspressoTest {
     @Test
     fun testRecyclerView() {
         launchFragment(R.id.listFragment)
-        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition<MyAdapter.ViewHolder>(3, click()))
-        onView(withId(R.id.recycler_view)).perform(scrollToPosition<MyAdapter.ViewHolder>(10))
-        // onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition<MyAdapter.ViewHolder>(10, click()))
+        val recycler = activityRule.activity.findViewById<RecyclerView>(R.id.recycler_view)
+        val items: Int = recycler.adapter?.itemCount ?: 0
+        onView(withId(R.id.recycler_view)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<MyAdapter.ViewHolder>(
+                3,
+                click()
+            )
+        )
+        onView(withId(R.id.recycler_view)).perform(scrollToPosition<MyAdapter.ViewHolder>(items - 1))
+        onView(withText("Kosecki")).check(matches(isDisplayed()))
+    }
+
+    @After
+    fun unregisterIdlingRes(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 }
 
