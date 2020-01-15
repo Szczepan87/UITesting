@@ -61,7 +61,7 @@ class UIAutomatorTests {
         context.startActivity(intent)
 
         // Wait for the app to appear
-        device.wait(Until.hasObject(By.pkg(BASIC_PACKAGE_NAME).depth(0)), LAUNCH_TIMEOUT);
+        device.wait(Until.hasObject(By.pkg(BASIC_PACKAGE_NAME).depth(0)), LAUNCH_TIMEOUT)
     }
 
     @Test
@@ -95,8 +95,6 @@ class UIAutomatorTests {
         val mainSwitch = device.findObject(By.res(BASIC_PACKAGE_NAME, "main_switch"))
         mainSwitch.click()
 
-        val optionOne = device.findObject(By.res(BASIC_PACKAGE_NAME, ""))
-
         with(device) {
             pressHome()
             pressRecentApps()
@@ -117,18 +115,10 @@ class UIAutomatorTests {
         launchFragment(R.id.animationFragment)
 
         val button = device.findObject(By.res(BASIC_PACKAGE_NAME, "animate_button"))
-        val motoImage = activityRule.activity.findViewById<ImageView>(R.id.moto_image)
 
         button.click()
 
-        assertThat(
-            motoImage.animation.hasStarted(),
-            `is`(true)
-        )
-
-//        device.wait(Until.gone(By.res(BASIC_PACKAGE_NAME, "moto_image")), 0)
-//
-//        onView(withId(R.id.moto_image)).check(matches(isDisplayed()))
+        onView(withId(R.id.moto_image)).check(matches(isDisplayed()))
     }
 
     private fun launchFragment(

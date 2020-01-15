@@ -75,8 +75,6 @@ class StepsEspressoTest {
     @Test
     fun shouldClickThroughAllTheFragments() {
         onView(withId(R.id.text_next_arrow)).check(matches(isDisplayed()))
-        // this will fail
-        // onView(withId(R.id.text_next_arrow)).perform(click()).check(matches(isDisplayed()))
         onView(withId(R.id.text_next_arrow)).perform(click())
         onView(withId(R.id.animate_button)).check(matches(isDisplayed()))
         onView(withId(R.id.animation_next_arrow)).perform(click())
